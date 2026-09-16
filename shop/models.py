@@ -16,20 +16,14 @@ class Product(models.Model):
             ('boots', 'Ботинки'),
         ]
     )
-    sex = models.CharField('Пол', max_length=10, choices=[('male', 'Мужской'), ('female', 'Женский')])
+    sex = models.CharField('Пол', max_length=10, choices=[('male', 'Мужской'), ('female', 'Женский'), ('unisex', 'Унисекс')])
     size = models.CharField(
         'Размер',
         max_length=10,
         choices=[
             ('36-38', '36-38'),
-            ('37-39', '37-39'),
-            ('38-40', '38-40'),
             ('39-41', '39-41'),
-            ('40-42', '40-42'),
-            ('41-43', '41-43'),
             ('42-44', '42-44'),
-            ('43-45', '43-45'),
-            ('44-46', '44-46'),
             ('45-47', '45-47')
         ]
     )
