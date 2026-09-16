@@ -1,7 +1,7 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
-class Workers(models.Model):
+class Worker(models.Model):
     name = models.CharField('Имя', max_length=100)
     position = models.CharField('Должность', max_length=100)
     photo = models.ImageField('Фото', upload_to='workers/', blank=True, null=True)
