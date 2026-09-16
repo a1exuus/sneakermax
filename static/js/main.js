@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCatalogFilters();
   initQuiz();
   initProductQuantity();
+  initContactMap();
 });
 
 function initMobileMenu() {
@@ -141,5 +142,57 @@ function initProductQuantity() {
       const min = Number(input.min || 1), max = Number(input.max || Infinity), value = Number(input.value || min);
       input.value = Math.min(max, Math.max(min, value));
     });
+  });
+}
+
+function initContactMap() {
+  const mapElement = document.querySelector('.map');
+  if (!mapElement) return;
+
+  const mapStylesheet = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+  if (!document.querySelector(`link[href="${mapStylesheet}"]`)) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = mapStylesheet;
+    document.head.appendChild(link);
+  }
+
+  const loadLeaflet = (callback) => {
+    if (window.L) {
+      callback();
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    script.onload = callback;
+    script.onerror = () => {
+      console.warn('Не удалось загрузить Leaflet. Оставляем изображение карты.');
+    };
+    document.head.appendChild(script);
+  };
+
+  loadLeaflet(() => {
+    const mapTarget = document.createElement('div');
+    mapTarget.id = 'contacts-map';
+    mapTarget.setAttribute('aria-label', 'Карта офиса SneakMax');
+    mapElement.replaceChildren(mapTarget);
+
+    const latitude = 59.92745;
+    const longitude = 30.36112;
+    const map = L.map(mapTarget, {
+      scrollWheelZoom: false,
+      attributionControl: true,
+    }).setView([latitude, longitude], 16);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors',
+    }).addTo(map);
+
+    L.marker([latitude, longitude])
+      .addTo(map)
+      .bindPopup('<strong>SneakMax</strong><br>г. Санкт-Петербург, Лиговский проспект, д. 30А')
+      .openPopup();
   });
 }
