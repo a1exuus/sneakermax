@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SneakMax</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<header class="site-header" id="top">
+  <div class="container site-header__inner">
+    <a class="logo" href="#top">SneakMax</a>
+    <nav class="main-nav" aria-label="Основная навигация">
+      <a href="#catalog">Каталог</a>
+      <a href="#about">О нас</a>
+      <a href="#quiz">Подбор товара</a>
+      <a href="#team">Наша команда</a>
+      <a href="#delivery">Доставка и оплата</a>
+      <a href="#contacts">Контакты</a>
+      <a class="cart-link" href="#cart">Корзина <span class="cart-link__icon" aria-hidden="true">⌑</span></a>
+    </nav>
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <h1>Кроссовки известных брендов<br>с доставкой по России и СНГ</h1>
+        <p>Мы продаем кроссовки брендов Nike, Adidas, Puma, Reebok,<br class="desktop-only"> Converse и многие другие по низким ценам</p>
+        <a class="button button--primary" href="#catalog">Перейти к покупкам</a>
+      </div>
+      <div class="hero__word" aria-hidden="true">SneakMax</div>
+    </div>
+  </section>
+
+  <section class="catalog section" id="catalog">
+    <div class="container">
+      <h2>Каталог</h2>
+      <div class="catalog__layout">
+        <aside class="filters" aria-label="Фильтр каталога">
+          <h3>Подбор<br>по параметрам</h3>
+          <div class="filter-group">
+            <div class="filter-title">Цена, руб</div>
+            <div class="price-values"><output id="min-price-value">1850</output><output id="max-price-value">25 768</output></div>
+            <div class="range-wrap"><input id="min-price" type="range" min="1850" max="25768" value="1850"><input id="max-price" type="range" min="1850" max="25768" value="25768"></div>
+          </div>
+          <div class="filter-group">
+            <div class="filter-title">Пол</div>
+            <label class="check"><input type="checkbox" name="gender" value="male"><span>мужской</span></label>
+            <label class="check"><input type="checkbox" name="gender" value="female"><span>женский</span></label>
+          </div>
+          <div class="filter-group">
+            <div class="filter-title">Размер</div>
+            <div class="sizes">
+              <button type="button" class="size">35</button><button type="button" class="size">36</button><button type="button" class="size">37</button>
+              <button type="button" class="size">38</button><button type="button" class="size">39</button><button type="button" class="size">40</button>
+              <button type="button" class="size">41</button><button type="button" class="size">42</button><button type="button" class="size">43</button>
+            </div>
+          </div>
+          <button class="button button--dark filter-submit" type="button">Применить</button>
+          <button class="filter-reset" type="reset">сбросить</button>
+        </aside>
+        <div class="products" id="products">
+          <!-- Backend contract: replace this static list with your products loop. -->
+          <article class="product-card" data-price="11000"><div class="product-card__image"><img src="/static/images/product.jpg" alt="Nike Air Force 1 '07 QS"></div><h3>Кроссовки Nike Air Force 1 '07 QS</h3><p>11 000 ₽</p></article>
+          <article class="product-card" data-price="11000"><div class="product-card__image"><img src="/static/images/product.jpg" alt="Nike Air Force 1 '07 QS"></div><h3>Кроссовки Nike Air Force 1 '07 QS</h3><p>11 000 ₽</p></article>
+          <article class="product-card" data-price="11000"><div class="product-card__image"><img src="/static/images/product.jpg" alt="Nike Air Force 1 '07 QS"></div><h3>Кроссовки Nike Air Force 1 '07 QS</h3><p>11 000 ₽</p></article>
+          <article class="product-card" data-price="11000"><div class="product-card__image"><img src="/static/images/product.jpg" alt="Nike Air Force 1 '07 QS"></div><h3>Кроссовки Nike Air Force 1 '07 QS</h3><p>11 000 ₽</p></article>
+          <article class="product-card" data-price="11000"><div class="product-card__image"><img src="/static/images/product.jpg" alt="Nike Air Force 1 '07 QS"></div><h3>Кроссовки Nike Air Force 1 '07 QS</h3><p>11 000 ₽</p></article>
+          <article class="product-card" data-price="11000"><div class="product-card__image"><img src="/static/images/product.jpg" alt="Nike Air Force 1 '07 QS"></div><h3>Кроссовки Nike Air Force 1 '07 QS</h3><p>11 000 ₽</p></article>
+          <article class="product-card" data-price="11000"><div class="product-card__image"><img src="/static/images/product.jpg" alt="Nike Air Force 1 '07 QS"></div><h3>Кроссовки Nike Air Force 1 '07 QS</h3><p>11 000 ₽</p></article>
+          <article class="product-card" data-price="11000"><div class="product-card__image"><img src="/static/images/product.jpg" alt="Nike Air Force 1 '07 QS"></div><h3>Кроссовки Nike Air Force 1 '07 QS</h3><p>11 000 ₽</p></article>
+          <article class="product-card" data-price="11000"><div class="product-card__image"><img src="/static/images/product.jpg" alt="Nike Air Force 1 '07 QS"></div><h3>Кроссовки Nike Air Force 1 '07 QS</h3><p>11 000 ₽</p></article>
+        </div>
+      </div>
+      <div class="catalog__more"><button class="button button--primary" id="load-more" type="button">Показать еще</button></div>
+    </div>
+  </section>
+
+  <section class="about section" id="about">
+    <div class="container about__inner">
+      <div class="about__content"><h2>Пара слов о нас</h2><p>Спорт держит нас в форме. Учит дисциплине. Объединяет нас. Через спорт мы можем менять жизни. В том числе с помощью воодушевляющих историй спортсменов. Чтобы помочь тебе подняться и двигаться вперед.</p><div class="about__sign"><span></span>SneakMax</div></div>
+      <div class="about__image"><img src="/static/images/about.jpg" alt=""></div>
+    </div>
+  </section>
+
+  <section class="quiz section" id="quiz">
+    <div class="container">
+      <h2>Мы подберем идеальную пару для вас</h2>
+      <p class="section-lead">Ответьте на три вопроса и мы вышлем каталог с самыми подходящими для вас моделями</p>
+      <form class="quiz-card" id="quiz-form">
+        <fieldset class="quiz-step is-active" data-step="1"><legend>Какой тип кроссовок рассматриваете?</legend><div class="quiz-options"><label><img src="/static/images/quiz-shoe.jpg" alt=""><input type="checkbox" name="type" value="sneakers"><span>кеды</span></label><label><img src="/static/images/quiz-shoe.jpg" alt=""><input type="checkbox" name="type" value="sneakers"><span>кеды</span></label><label><img src="/static/images/quiz-shoe.jpg" alt=""><input type="checkbox" name="type" value="sneakers"><span>кеды</span></label><label><img src="/static/images/quiz-shoe.jpg" alt=""><input type="checkbox" name="type" value="sneakers"><span>кеды</span></label><label><img src="/static/images/quiz-shoe.jpg" alt=""><input type="checkbox" name="type" value="sneakers"><span>кеды</span></label><label><img src="/static/images/quiz-shoe.jpg" alt=""><input type="checkbox" name="type" value="sneakers"><span>кеды</span></label></div></fieldset>
+        <fieldset class="quiz-step" data-step="2"><legend>Какой размер вам подойдет?</legend><div class="quiz-sizes"><label><input type="radio" name="size" value="under36"><span>менее 36</span></label><label><input type="radio" name="size" value="36-38"><span>36-38</span></label><label><input type="radio" name="size" value="39-41"><span>39-41</span></label><label><input type="radio" name="size" value="42-44"><span>42-44</span></label><label><input type="radio" name="size" value="45plus"><span>45 и больше</span></label></div></fieldset>
+        <fieldset class="quiz-step" data-step="3"><legend>Ваша подборка готова!</legend><p>Оставьте свои контактные данные, чтобы мы могли отправить подготовленный для вас каталог</p><div class="quiz-final"><input name="name" type="text" placeholder="Ваше имя" required><input name="email" type="email" placeholder="E-mail" required><button class="button button--primary" type="submit">Получить предложение</button></div></fieldset>
+        <div class="quiz-footer"><span id="quiz-progress">1 из 3</span><button class="button button--outline" id="quiz-next" type="button">Следующий шаг</button></div>
+      </form>
+    </div>
+  </section>
+
+  <section class="team section" id="team"><div class="container"><h2>Наша команда</h2><div class="team-grid"><article><img src="/static/images/team-1.jpg" alt=""><h3>Максим Золотарев</h3><p>Администратор</p></article><article><img src="/static/images/team-2.jpg" alt=""><h3>Максим Золотарев</h3><p>Администратор</p></article><article><img src="/static/images/team-3.jpg" alt=""><h3>Максим Золотарев</h3><p>Администратор</p></article><article><img src="/static/images/team-4.jpg" alt=""><h3>Максим Золотарев</h3><p>Администратор</p></article><article><img src="/static/images/team-5.jpg" alt=""><h3>Максим Золотарев</h3><p>Администратор</p></article><article><img src="/static/images/team-6.jpg" alt=""><h3>Максим Золотарев</h3><p>Администратор</p></article></div></div></section>
+
+  <section class="faq section"><div class="container"><h2>Часто задаваемые вопросы</h2><div class="faq-list"><article class="faq-item is-open"><button type="button"><span>Вопрос 1</span><b>×</b></button><div class="faq-item__answer">А это ответ 1: в комплексе функционируют 6 детских садов с площадками, воспитателями и всякими другими людьми</div></article><article class="faq-item"><button type="button"><span>Вопрос 2</span><b>+</b></button><div class="faq-item__answer">Ответ на вопрос.</div></article></div></div></section>
+
+  <section class="contacts section" id="contacts"><div class="container contacts__inner"><div><h2>Контакты</h2><p>Адрес и телефон для корреспонденции, инвесторов.<br>Вопросы о доставке, качестве обслуживания и товара<br>просьба задавать в отдел продаж</p><div class="contact-block"><small>ГЛАВНЫЙ ОФИС</small><strong>+7 800 789 89 89</strong><span>г. Санкт-Петербург, Комсомольская, 43 к1</span></div><div class="contact-block"><small>ОТДЕЛ ПРОДАЖ</small><strong>+7 800 789 89 89</strong><span>г. Санкт-Петербург, Комсомольская, 43 к1</span></div><div class="socials"><a href="#">vk</a><a href="#">◎</a></div></div><div class="map"><img src="/static/images/map.jpg" alt="Карта"></div></div></section>
+
+  <section class="bottom section"><div class="container bottom__inner"><form class="feedback" id="feedback-form"><h2>Есть вопросы?</h2><p>Заполните форму и наш менеджер свяжется с вами</p><input name="name" type="text" placeholder="Ваше имя" required><input name="phone" type="tel" placeholder="Номер телефона" required><button class="button button--primary" type="submit">Отправить</button><p class="form-message" aria-live="polite"></p></form><div class="instagram"><h2>Instagram</h2><div class="instagram-grid"><img src="/static/images/instagram-1.jpg" alt=""><img class="instagram-main" src="/static/images/instagram-main.jpg" alt=""><img src="/static/images/instagram-2.jpg" alt=""><img src="/static/images/instagram-3.jpg" alt=""><img src="/static/images/instagram-4.jpg" alt=""></div></div></div></section>
+</main>
+
+<footer class="footer"><div class="container footer__inner"><a class="logo" href="#top">SneakMax</a><nav><a href="#catalog">Каталог</a><a href="#about">О нас</a><a href="#quiz">Подбор товара</a><a href="#team">Наша команда</a><a href="#delivery">Доставка и оплата</a><a href="#contacts">Контакты</a></nav></div></footer>
+<script src="/static/js/main.js"></script>
+</body>
+</html>
