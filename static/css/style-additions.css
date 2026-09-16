@@ -759,3 +759,105 @@ h2 {
         font-size: 11px;
     }
 }
+
+
+/* =========================================================
+   READABILITY FIX — ABOUT + FAQ
+   ========================================================= */
+
+/* ---------- ABOUT ---------- */
+
+.about h2 {
+    font-size: 32px;
+    line-height: 1.25;
+    margin-bottom: 24px;
+}
+
+.about p {
+    font-size: 16px;
+    line-height: 1.65;
+    max-width: 560px;
+}
+
+.about__sign {
+    font-size: 14px;
+    margin-top: 24px;
+}
+
+
+/* ---------- FAQ ---------- */
+
+.faq h2 {
+    font-size: 32px;
+    line-height: 1.25;
+    margin-bottom: 28px;
+}
+
+.faq-item button {
+    height: 82px;
+    font-size: 15px;
+}
+
+.faq-item button b {
+    font-size: 38px;
+}
+
+.faq-item__answer {
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.faq-item.is-open .faq-item__answer {
+    max-height: 220px;
+    padding-bottom: 24px;
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 760px) {
+
+    .about h2 {
+        font-size: 28px;
+    }
+
+    .about p {
+        font-size: 14px;
+        line-height: 1.65;
+    }
+
+    .about__sign {
+        font-size: 13px;
+    }
+
+    .faq h2 {
+        font-size: 28px;
+    }
+
+    .faq-item button {
+        height: 72px;
+        font-size: 14px;
+    }
+
+    .faq-item__answer {
+        font-size: 13px;
+    }
+}
+
+
+/* ---------- TEAM PHOTO HOVER ---------- */
+
+.team-grid img {
+    filter: grayscale(1);
+    transform: translateY(0) scale(1);
+    transition:
+        filter 0.7s ease,
+        transform 0.7s ease,
+        box-shadow 0.7s ease;
+}
+
+.team-grid article:hover img {
+    filter: grayscale(0);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
+}

@@ -1,18 +1,344 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block title %}SneakMax — кроссовки известных брендов{% endblock %}
+
 {% block header_class %}site-header--hero{% endblock %}
+
 {% block content %}
+
 <section class="hero">
-  <div class="container hero__inner"><div class="hero__content"><h1>Кроссовки известных брендов<br>с доставкой по России и СНГ</h1><p>Мы продаем кроссовки брендов Nike, Adidas, Puma, Reebok,<br class="desktop-only"> Converse и многие другие по низким ценам</p><a class="button button--primary" href="#catalog">Перейти к покупкам</a></div><div class="hero__word" aria-hidden="true">SneakMax</div></div>
+    <div class="container hero__inner">
+        <div class="hero__content">
+            <h1>Кроссовки известных брендов<br>с доставкой по России и СНГ</h1>
+            <p>Мы продаем кроссовки брендов Nike, Adidas, Puma, Reebok,<br class="desktop-only"> Converse и многие другие по низким ценам</p>
+            <a class="button button--primary" href="#catalog">Перейти к покупкам</a>
+        </div>
+        <div class="hero__word" aria-hidden="true">SneakMax</div>
+    </div>
 </section>
-<section class="catalog section" id="catalog"><div class="container"><div class="section-heading-row"><h2>Каталог</h2><a class="text-link" href="/catalog/">Весь каталог →</a></div><div class="catalog__layout"><aside class="filters" aria-label="Фильтр каталога"><h3>Подбор<br>по параметрам</h3><div class="filter-group"><div class="filter-title">Цена, руб</div><div class="price-values"><output id="min-price-value">1850</output><output id="max-price-value">25 768</output></div><div class="range-wrap"><input id="min-price" type="range" min="1850" max="25768" value="1850"><input id="max-price" type="range" min="1850" max="25768" value="25768"></div></div><div class="filter-group"><div class="filter-title">Пол</div><label class="check"><input type="checkbox" name="gender" value="male"><span>мужской</span></label><label class="check"><input type="checkbox" name="gender" value="female"><span>женский</span></label></div><div class="filter-group"><div class="filter-title">Размер</div><div class="sizes">{% for size in sizes %}<button type="button" class="size" data-size="{{ size }}">{{ size }}</button>{% empty %}<button type="button" class="size" data-size="35">35</button><button type="button" class="size" data-size="36">36</button><button type="button" class="size" data-size="37">37</button><button type="button" class="size" data-size="38">38</button><button type="button" class="size" data-size="39">39</button><button type="button" class="size" data-size="40">40</button><button type="button" class="size" data-size="41">41</button><button type="button" class="size" data-size="42">42</button><button type="button" class="size" data-size="43">43</button>{% endfor %}</div></div><button class="button button--dark filter-submit" type="button">Применить</button><button class="filter-reset" type="button">сбросить</button></aside>
-<div class="products" id="products">{% for product in products %}<article class="product-card" data-price="{{ product.price }}" data-size="{{ product.size }}" data-gender="{{ product.sex }}"><a href="/product/{{ product.pk }}/" class="product-card__link"><div class="product-card__image">{% if product.image %}<img src="{{ product.image.url }}" alt="{{ product.name }}">{% else %}<img src="{% static 'images/product.jpg' %}" alt="{{ product.name }}">{% endif %}</div><h3>{{ product.name }}</h3><p>{{ product.price|floatformat:0 }} ₽</p></a></article>{% empty %}{% for i in '123456789' %}<article class="product-card" data-price="11000"><a href="/catalog/" class="product-card__link"><div class="product-card__image"><img src="{% static 'images/product.jpg' %}" alt="Демо-кроссовки"></div><h3>Кроссовки Nike Air Force 1 '07 QS</h3><p>11 000 ₽</p></a></article>{% endfor %}{% endfor %}</div></div><div class="catalog__more"><a class="button button--primary" href="/catalog/">Открыть каталог</a></div></div></section>
-<section class="about section" id="about"><div class="container about__inner"><div class="about__content"><h2>Пара слов о нас</h2><p>Спорт держит нас в форме. Учит дисциплине. Объединяет нас. Через спорт мы можем менять жизни. В том числе с помощью воодушевляющих историй спортсменов. Чтобы помочь тебе подняться и двигаться вперед.</p><div class="about__sign"><span></span>SneakMax</div></div><div class="about__image"><img src="{% static 'images/about.jpg' %}" alt="Кроссовки SneakMax"></div></div></section>
-<section class="quiz section" id="quiz"><div class="container"><h2>Мы подберем идеальную пару для вас</h2><p class="section-lead">Ответьте на три вопроса и мы вышлем каталог с самыми подходящими для вас моделями</p><form class="quiz-card" id="quiz-form" method="post" action="/quiz/"><fieldset class="quiz-step is-active" data-step="1"><legend>Какой тип кроссовок рассматриваете?</legend><div class="quiz-options"><label><img src="{% static 'images/quiz-shoe.jpg' %}" alt="Кеды"><input type="radio" name="type" value="canvas_sneakers"><span>кеды</span></label><label><img src="{% static 'images/quiz-shoe.jpg' %}" alt="Кроссовки"><input type="radio" name="type" value="sneakers"><span>кроссовки</span></label><label><img src="{% static 'images/quiz-shoe.jpg' %}" alt="Беговые"><input type="radio" name="type" value="running_shoes"><span>беговые</span></label><label><img src="{% static 'images/quiz-shoe.jpg' %}" alt="Баскетбольные"><input type="radio" name="type" value="basketball_shoes"><span>баскетбольные</span></label><label><img src="{% static 'images/quiz-shoe.jpg' %}" alt="Слипоны"><input type="radio" name="type" value="slip_ons"><span>слипоны</span></label><label><img src="{% static 'images/quiz-shoe.jpg' %}" alt="Ботинки"><input type="radio" name="type" value="boots"><span>ботинки</span></label></div></fieldset><fieldset class="quiz-step" data-step="2"><legend>Какой размер вам подойдет?</legend><div class="quiz-sizes"><label><input type="radio" name="size" value="under36"><span>менее 36</span></label><label><input type="radio" name="size" value="36-38"><span>36-38</span></label><label><input type="radio" name="size" value="39-41"><span>39-41</span></label><label><input type="radio" name="size" value="42-44"><span>42-44</span></label><label><input type="radio" name="size" value="45plus"><span>45 и больше</span></label></div></fieldset><fieldset class="quiz-step" data-step="3"><legend>Ваша подборка готова!</legend><p>Оставьте свои контактные данные, чтобы мы могли отправить подготовленный для вас каталог</p><div class="quiz-final"><input name="name" type="text" placeholder="Ваше имя" required><input name="email" type="email" placeholder="E-mail" required><button class="button button--primary" type="submit">Получить предложение</button></div></fieldset><div class="quiz-footer"><span id="quiz-progress">1 из 3</span><button class="button button--outline" id="quiz-next" type="button">Следующий шаг</button></div></form></div></section>
-<section class="team section" id="team"><div class="container"><h2>Наша команда</h2><div class="team-grid">{% for worker in workers %}<article>{% if worker.photo %}<img src="{{ worker.photo.url }}" alt="{{ worker.name }}">{% else %}<img src="{% static 'images/team-1.jpg' %}" alt="{{ worker.name }}">{% endif %}<h3>{{ worker.name }}</h3><p>{{ worker.position }}</p></article>{% empty %}<article><img src="{% static 'images/team-1.jpg' %}" alt=""><h3>Команда SneakMax</h3><p>Добавьте сотрудников в разделе staff</p></article>{% endfor %}</div></div></section>
-<section class="delivery section" id="delivery"><div class="container"><h2>Доставка и оплата</h2><div class="delivery-grid"><article><h3>Доставка</h3><p>Условия и сроки доставки можно вывести здесь из настроек магазина или передать из context/view.</p></article><article><h3>Оплата</h3><p>Доступные способы оплаты показываются на этапе оформления заказа.</p></article><article><h3>Обмен и возврат</h3><p>Правила обмена и возврата можно разместить отдельным текстовым блоком.</p></article></div></div></section>
-<section class="faq section"><div class="container"><h2>Часто задаваемые вопросы</h2><div class="faq-list"><article class="faq-item is-open"><button type="button"><span>Как оформить заказ?</span><b>×</b></button><div class="faq-item__answer">Выберите товар, добавьте его в корзину и перейдите к оформлению заказа. Менеджер подтвердит детали.</div></article><article class="faq-item"><button type="button"><span>Какие способы оплаты доступны?</span><b>+</b></button><div class="faq-item__answer">Доступный способ оплаты отображается на странице оформления заказа.</div></article><article class="faq-item"><button type="button"><span>Есть ли доставка?</span><b>+</b></button><div class="faq-item__answer">Условия и стоимость доставки можно показать здесь после подключения соответствующей логики backend.</div></article></div></div></section>
-<section class="contacts section" id="contacts"><div class="container contacts__inner"><div><h2>Контакты</h2><p>Адрес и телефон для корреспонденции, инвесторов.<br>Вопросы о доставке, качестве обслуживания и товара<br>просьба задавать в отдел продаж</p><div class="contact-block"><small>ГЛАВНЫЙ ОФИС</small><strong>+7 800 789 89 89</strong><span>г. Санкт-Петербург, Комсомольская, 43 к1</span></div><div class="contact-block"><small>ОТДЕЛ ПРОДАЖ</small><strong>+7 800 789 89 89</strong><span>г. Санкт-Петербург, Комсомольская, 43 к1</span></div><div class="socials"><a href="#" aria-label="VK">vk</a><a href="#" aria-label="Instagram">◎</a></div></div><div class="map"><img src="{% static 'images/map.jpg' %}" alt="Карта"></div></div></section>
-<section class="bottom section"><div class="container bottom__inner"><form class="feedback" id="feedback-form" method="post" action="/feedback/"><h2>Есть вопросы?</h2><p>Заполните форму и наш менеджер свяжется с вами</p>{% csrf_token %}<input name="name" type="text" placeholder="Ваше имя" required><input name="phone" type="tel" placeholder="Номер телефона" required><button class="button button--primary" type="submit">Отправить</button><p class="form-message" aria-live="polite"></p></form><div class="instagram"><h2>Instagram</h2><div class="instagram-grid"><img src="{% static 'images/instagram-1.jpg' %}" alt=""><img class="instagram-main" src="{% static 'images/instagram-main.jpg' %}" alt=""><img src="{% static 'images/instagram-2.jpg' %}" alt=""><img src="{% static 'images/instagram-3.jpg' %}" alt=""><img src="{% static 'images/instagram-4.jpg' %}" alt=""></div></div></div></section>
+
+<section class="catalog section" id="catalog">
+    <div class="container">
+        <div class="section-heading-row">
+            <h2>Каталог</h2>
+            <a class="text-link" href="/catalog/">Весь каталог →</a>
+        </div>
+
+        <div class="catalog__layout">
+
+            <aside class="filters" aria-label="Фильтр каталога">
+                <h3>Подбор<br>по параметрам</h3>
+
+                <div class="filter-group">
+                    <div class="filter-title">Цена, руб</div>
+                    <div class="price-values">
+                        <output id="min-price-value">1850</output>
+                        <output id="max-price-value">25 768</output>
+                    </div>
+                    <div class="range-wrap">
+                        <input id="min-price" type="range" min="1850" max="25768" value="1850">
+                        <input id="max-price" type="range" min="1850" max="25768" value="25768">
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <div class="filter-title">Пол</div>
+                    <label class="check">
+                        <input type="checkbox" name="gender" value="male">
+                        <span>мужской</span>
+                    </label>
+                    <label class="check">
+                        <input type="checkbox" name="gender" value="female">
+                        <span>женский</span>
+                    </label>
+                </div>
+
+                <div class="filter-group">
+                    <div class="filter-title">Размер</div>
+                    <div class="sizes">
+                        {% for size in sizes %}
+                            <button type="button" class="size" data-size="{{ size }}">{{ size }}</button>
+                        {% empty %}
+                            <button type="button" class="size" data-size="35">35</button>
+                            <button type="button" class="size" data-size="36">36</button>
+                            <button type="button" class="size" data-size="37">37</button>
+                            <button type="button" class="size" data-size="38">38</button>
+                            <button type="button" class="size" data-size="39">39</button>
+                            <button type="button" class="size" data-size="40">40</button>
+                            <button type="button" class="size" data-size="41">41</button>
+                            <button type="button" class="size" data-size="42">42</button>
+                            <button type="button" class="size" data-size="43">43</button>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <button class="button button--dark filter-submit" type="button">Применить</button>
+                <button class="filter-reset" type="button">сбросить</button>
+            </aside>
+
+            <div class="products" id="products">
+                {% for product in products %}
+                  <article class="product-card" data-price="{{ product.price }}" data-size="{{ product.size }}" data-gender="{{ product.sex }}">
+                      <a href="/product/{{ product.pk }}/" class="product-card__link">
+                          <div class="product-card__image">
+                              {% if product.image.all.0 %}
+                                  <img src="{{ product.image.all.0.image.url }}" alt="{{ product.name }}">
+                              {% else %}
+                                  <img src="{% static 'images/product.jpg' %}" alt="{{ product.name }}">
+                              {% endif %}
+                          </div>
+                          <h3>{{ product.name }}</h3>
+                          <p>{{ product.price|floatformat:0 }} ₽</p>
+                      </a>
+                  </article>
+                {% empty %}
+                    <div class="no-products">
+                        <p>В базе данных пока нет кроссовок. Добавьте их через админку Django.</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+        <div class="catalog__more">
+            <a class="button button--primary" href="/catalog/">Открыть каталог</a>
+        </div>
+    </div>
+</section>
+
+<section class="about section" id="about">
+    <div class="container about__inner">
+        <div class="about__content">
+            <h2>Пара слов о нас</h2>
+            <p>Спорт держит нас в форме. Учит дисциплине. Объединяет нас. Через спорт мы можем менять жизни. В том числе с помощью воодушевляющих историй спортсменов. Чтобы помочь тебе подняться и двигаться вперед.</p>
+            <div class="about__sign">
+                <span></span>SneakMax
+            </div>
+        </div>
+        <div class="about__image">
+            <img src="{% static 'images/about.jpg' %}" alt="Кроссовки SneakMax">
+        </div>
+    </div>
+</section>
+
+<section class="quiz section" id="quiz">
+    <div class="container">
+        <h2>Мы подберем идеальную пару для вас</h2>
+        <p class="section-lead">Ответьте на три вопроса и мы вышлем каталог с самыми подходящими для вас моделями</p>
+
+        <form class="quiz-card" id="quiz-form" method="post" action="/quiz/">
+
+            <fieldset class="quiz-step is-active" data-step="1">
+                <legend>Какой тип кроссовок рассматриваете?</legend>
+                <div class="quiz-options">
+                    <label>
+                        <img src="{% static 'images/plimsolls.jpg' %}" alt="Кеды">
+                        <input type="radio" name="type" value="canvas_sneakers">
+                        <span>кеды</span>
+                    </label>
+                    <label>
+                        <img src="{% static 'images/sneakers.jpg' %}" alt="Кроссовки">
+                        <input type="radio" name="type" value="sneakers">
+                        <span>кроссовки</span>
+                    </label>
+                    <label>
+                        <img src="{% static 'images/running_shoes.jpg' %}" alt="Беговые">
+                        <input type="radio" name="type" value="running_shoes">
+                        <span>беговые</span>
+                    </label>
+                    <label>
+                        <img src="{% static 'images/basketball_shoes.jpg' %}" alt="Баскетбольные">
+                        <input type="radio" name="type" value="basketball_shoes">
+                        <span>баскетбольные</span>
+                    </label>
+                    <label>
+                        <img src="{% static 'images/slipons.jpg' %}" alt="Слипоны">
+                        <input type="radio" name="type" value="slip_ons">
+                        <span>слипоны</span>
+                    </label>
+                    <label>
+                        <img src="{% static 'images/shoes.avif' %}" alt="Ботинки">
+                        <input type="radio" name="type" value="boots">
+                        <span>ботинки</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <fieldset class="quiz-step" data-step="2">
+                <legend>Какой размер вам подойдет?</legend>
+                <div class="quiz-sizes">
+                    <label>
+                        <input type="radio" name="size" value="under36">
+                        <span>менее 36</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="size" value="36-38">
+                        <span>36-38</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="size" value="39-41">
+                        <span>39-41</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="size" value="42-44">
+                        <span>42-44</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="size" value="45plus">
+                        <span>45 и больше</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <fieldset class="quiz-step" data-step="3">
+                <legend>Ваша подборка готова!</legend>
+                <p>Оставьте свои контактные данные, чтобы мы могли отправить подготовленный для вас каталог</p>
+                <div class="quiz-final">
+                    <input name="name" type="text" placeholder="Ваше имя" required>
+                    <input name="email" type="email" placeholder="E-mail" required>
+                    <button class="button button--primary" type="submit">Получить предложение</button>
+                </div>
+            </fieldset>
+
+            <div class="quiz-footer">
+                <span id="quiz-progress">1 из 3</span>
+                <button class="button button--outline" id="quiz-next" type="button">Следующий шаг</button>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+<section class="team section" id="team">
+    <div class="container">
+        <h2>Наша команда</h2>
+        <div class="team-grid">
+            {% for worker in workers %}
+                <article>
+                    {% if worker.photo %}
+                        <img src="{{ worker.photo.url }}" alt="{{ worker.name }}">
+                    {% else %}
+                        <img src="{% static 'images/team-1.jpg' %}" alt="{{ worker.name }}">
+                    {% endif %}
+                    <h3>{{ worker.name }}</h3>
+                    <p>{{ worker.position }}</p>
+                </article>
+            {% empty %}
+                <article>
+                    <img src="{% static 'images/team-1.jpg' %}" alt="">
+                    <h3>Команда SneakerMax</h3>
+                    <p>Добавьте сотрудников в разделе staff</p>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="delivery section" id="delivery">
+    <div class="container">
+        <h2>Доставка и оплата</h2>
+        <div class="delivery-grid">
+            <article>
+                <h3>Доставка</h3>
+                <p>Условия и сроки доставки можно вывести здесь из настроек магазина или передать из context/view.</p>
+            </article>
+            <article>
+                <h3>Оплата</h3>
+                <p>Доступные способы оплаты показываются на этапе оформления заказа.</p>
+            </article>
+            <article>
+                <h3>Обмен и возврат</h3>
+                <p>Правила обмена и возврата можно разместить отдельным текстовым блоком.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="faq section">
+    <div class="container">
+        <h2>Часто задаваемые вопросы</h2>
+        <div class="faq-list">
+            <article class="faq-item is-open">
+                <button type="button">
+                    <span>Как оформить заказ?</span>
+                    <b>×</b>
+                </button>
+                <div class="faq-item__answer">Выберите товар, добавьте его в корзину и перейдите к оформлению заказа. Менеджер подтвердит детали.</div>
+            </article>
+            <article class="faq-item">
+                <button type="button">
+                    <span>Какие способы оплаты доступны?</span>
+                    <b>+</b>
+                </button>
+                <div class="faq-item__answer">Доступный способ оплаты отображается на странице оформления заказа.</div>
+            </article>
+            <article class="faq-item">
+                <button type="button">
+                    <span>Есть ли доставка?</span>
+                    <b>+</b>
+                </button>
+                <div class="faq-item__answer">Условия и стоимость доставки можно показать здесь после подключения соответствующей логики backend.</div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="contacts section" id="contacts">
+    <div class="container contacts__inner">
+        <div>
+            <h2>Контакты</h2>
+            <p>Адрес и телефон для корреспонденции, инвесторов.<br>Вопросы о доставке, качестве обслуживания и товара<br>просьба задавать в отдел продаж</p>
+
+            <div class="contact-block">
+                <small>ГЛАВНЫЙ ОФИС</small>
+                <strong>+7 800 789 89 89</strong>
+                <span>г. Санкт-Петербург, Лиговский проспект, д. 28</span>
+            </div>
+
+            <div class="contact-block">
+                <small>ОТДЕЛ ПРОДАЖ</small>
+                <strong>+7 800 788 00 88</strong>
+                <span>г. Санкт-Петербург, Лиговский проспект, д. 30А</span>
+            </div>
+
+            <div class="socials">
+                <a href="#" aria-label="VK">vk</a>
+                <a href="#" aria-label="Instagram">◎</a>
+            </div>
+        </div>
+
+        <div class="map">
+            <img src="{% static 'images/map.jpg' %}" alt="Карта">
+        </div>
+    </div>
+</section>
+
+<section class="bottom section">
+    <div class="container bottom__inner">
+
+        <form class="feedback" id="feedback-form" method="post" action="/feedback/">
+            <h2>Есть вопросы?</h2>
+            <p>Заполните форму и наш менеджер свяжется с вами</p>
+            {% csrf_token %}
+            <input name="name" type="text" placeholder="Ваше имя" required>
+            <input name="phone" type="tel" placeholder="Номер телефона" required>
+            <button class="button button--primary" type="submit">Отправить</button>
+            <p class="form-message" aria-live="polite"></p>
+        </form>
+
+        <div class="instagram">
+            <h2>Instagram</h2>
+            <div class="instagram-grid">
+                <img src="{% static 'images/instagram-1.jpg' %}" alt="">
+                <img class="instagram-main" src="{% static 'images/instagram-main.jpg' %}" alt="">
+                <img src="{% static 'images/instagram-2.jpg' %}" alt="">
+                <img src="{% static 'images/instagram-3.jpg' %}" alt="">
+                <img src="{% static 'images/instagram-4.jpg' %}" alt="">
+            </div>
+        </div>
+
+    </div>
+</section>
+
 {% endblock %}
