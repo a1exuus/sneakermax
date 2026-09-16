@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Каталог — SneakMax{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="container"><a class="back-link" href="/">← На главную</a><h1>Каталог</h1><p>Выберите модель по параметрам и откройте карточку товара.</p></div></section>
+<section class="page-section"><div class="container catalog-page__layout">
+  <form class="filters filters--sticky" method="get">
+    <h2>Подбор по параметрам</h2>
+    <div class="filter-group"><div class="filter-title">Цена, руб</div><div class="price-values"><span>{{ min_price|default:'1850' }}</span><span>{{ max_price|default:'25 768' }}</span></div><div class="range-wrap"><input id="min-price" name="min_price" type="range" min="1850" max="25768" value="{{ min_price|default:1850 }}"><input id="max-price" name="max_price" type="range" min="1850" max="25768" value="{{ max_price|default:25768 }}"></div></div>
+    <div class="filter-group"><div class="filter-title">Пол</div><label class="check"><input type="checkbox" name="gender" value="male" {% if selected_gender == 'male' %}checked{% endif %}><span>мужской</span></label><label class="check"><input type="checkbox" name="gender" value="female" {% if selected_gender == 'female' %}checked{% endif %}><span>женский</span></label></div>
+    <div class="filter-group"><div class="filter-title">Размер</div><div class="sizes">{% for size in sizes %}<button type="button" class="size {% if size|stringformat:'s' == selected_size|stringformat:'s' %}is-selected{% endif %}" data-size="{{ size }}">{{ size }}</button>{% empty %}<span class="muted">Размеры будут доступны после подключения данных.</span>{% endfor %}</div><input type="hidden" name="size" id="selected-size" value="{{ selected_size|default:'' }}"></div>
+    <button class="button button--dark filter-submit" type="submit">Применить</button><a class="filter-reset" href="/catalog/">сбросить</a>
+  </form>
+  <div class="catalog-page__products"><div class="products products--page">
+    {% for product in products %}
+      <article class="product-card" data-price="{{ product.price }}" data-size="{{ product.size }}" data-gender="{{ product.sex }}">
+        <a href="/product/{{ product.pk }}/" class="product-card__link"><div class="product-card__image">{% if product.image %}<img src="{{ product.image.url }}" alt="{{ product.name }}">{% else %}<img src="{% static 'images/product.jpg' %}" alt="{{ product.name }}">{% endif %}</div><h3>{{ product.name }}</h3><p>{{ product.price|floatformat:0 }} ₽</p></a>
+      </article>
+    {% empty %}<div class="empty-state"><strong>Каталог пока пуст.</strong><span>Как только появятся товары, они будут показаны здесь.</span></div>{% endfor %}
+  </div></div>
+</div></section>
+{% endblock %}

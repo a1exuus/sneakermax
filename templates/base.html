@@ -1,0 +1,44 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4d488b">
+  <title>{% block title %}SneakMax{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/pages.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style-additions.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+<header class="site-header {% block header_class %}site-header--light{% endblock %}" id="top">
+  <div class="container site-header__inner">
+    <a class="logo" href="/">SneakMax</a>
+    <nav class="main-nav" aria-label="Основная навигация">
+      <a href="/#catalog">Каталог</a>
+      <a href="/#about">О нас</a>
+      <a href="/#quiz">Подбор товара</a>
+      <a href="/#team">Наша команда</a>
+      <a href="/#delivery">Доставка и оплата</a>
+      <a href="/#contacts">Контакты</a>
+      <a class="cart-link" href="/cart/">Корзина <span class="cart-count">{{ cart_count|default:0 }}</span></a>
+    </nav>
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>{% block content %}{% endblock %}</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <a class="logo" href="/">SneakMax</a>
+    <nav aria-label="Навигация в подвале">
+      <a href="/#catalog">Каталог</a><a href="/#about">О нас</a><a href="/#quiz">Подбор товара</a><a href="/#team">Наша команда</a><a href="/#delivery">Доставка и оплата</a><a href="/#contacts">Контакты</a>
+    </nav>
+  </div>
+</footer>
+<script src="{% static 'js/main.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

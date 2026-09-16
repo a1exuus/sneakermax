@@ -26,7 +26,7 @@ TINYMCE_DEFAULT_CONFIG = {
     'height': 500,
     'menubar': True,
     'plugins': 'advlist autolink lists link image charmap print preview anchor code',
-    'toolbar': 'undo redo | formatselect | bold italic | code | help',  # Добавил 'code'
+    'toolbar': 'undo redo | formatselect | bold italic | code | help',
 }
 
 
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'shop',
     'staff',
     'orders',
+    'adminsortable2',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +59,7 @@ ROOT_URLCONF = 'sneakermax.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -105,5 +106,6 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

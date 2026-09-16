@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Корзина — SneakMax{% endblock %}
+{% block content %}
+<section class="page-section"><div class="container"><a class="back-link" href="/catalog/">← Продолжить покупки</a><div class="page-heading"><h1>Корзина</h1><span>{{ cart_count|default:0 }} позиций</span></div>
+{% if cart_items %}<div class="cart-layout"><div class="cart-list">
+{% for item in cart_items %}<article class="cart-item"><div class="cart-item__image">{% if item.product.image %}<img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">{% endif %}</div><div class="cart-item__main"><h2>{{ item.product.name }}</h2><p>{{ item.product.get_type_display }} · размер {{ item.product.size }}</p><form class="cart-item__form" method="post" action="/cart/update/">{% csrf_token %}<input type="hidden" name="product_id" value="{{ item.product.pk }}"><label>Количество<input name="quantity" type="number" min="1" max="{{ item.product.stock }}" value="{{ item.quantity }}"></label><button type="submit">Обновить</button></form></div><strong>{{ item.total|floatformat:0 }} ₽</strong></article>{% endfor %}
+</div><aside class="order-summary"><h2>Ваш заказ</h2><dl><div><dt>Товары</dt><dd>{{ cart_total|floatformat:0 }} ₽</dd></div><div><dt>Доставка</dt><dd>{{ delivery_price|default:'Бесплатно' }}</dd></div></dl><div class="order-summary__total"><span>Итого</span><strong>{{ grand_total|default:cart_total|floatformat:0 }} ₽</strong></div><a class="button button--primary" href="/checkout/">Оформить заказ</a></aside></div>
+{% else %}<div class="empty-state empty-state--large"><strong>В корзине пока ничего нет.</strong><span>Добавьте понравившуюся пару из каталога.</span><a class="button button--primary" href="/catalog/">Открыть каталог</a></div>{% endif %}
+</div></section>
+{% endblock %}

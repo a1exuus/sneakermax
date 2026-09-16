@@ -1,3 +1,23 @@
 from django.contrib import admin
+from .models import Order, OrderItem
 
-# Register your models here.
+
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    extra = 1
+    raw_id_fields = ['product']
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'customer_name', 'status', 'created_at', 'updated_at')
+    list_filter = ('status', 'created_at', 'updated_at')
+    search_fields = ('customer_name', 'customer_email')
+
+    inlines = [OrderItemInline]
+
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ('id', 'order', 'product', 'quantity')
+    list_filter = ('order', 'product')
