@@ -8,7 +8,12 @@
     <h2>Подбор по параметрам</h2>
     <div class="filter-group"><div class="filter-title">Цена, руб</div><div class="price-values"><span>{{ min_price|default:'1850' }}</span><span>{{ max_price|default:'25 768' }}</span></div><div class="range-wrap"><input id="min-price" name="min_price" type="range" min="1850" max="25768" value="{{ min_price|default:1850 }}"><input id="max-price" name="max_price" type="range" min="1850" max="25768" value="{{ max_price|default:25768 }}"></div></div>
     <div class="filter-group"><div class="filter-title">Пол</div><label class="check"><input type="checkbox" name="gender" value="male" {% if selected_gender == 'male' %}checked{% endif %}><span>мужской</span></label><label class="check"><input type="checkbox" name="gender" value="female" {% if selected_gender == 'female' %}checked{% endif %}><span>женский</span></label></div>
-    <div class="filter-group"><div class="filter-title">Размер</div><div class="sizes">{% for size in sizes %}<button type="button" class="size {% if size|stringformat:'s' == selected_size|stringformat:'s' %}is-selected{% endif %}" data-size="{{ size }}">{{ size }}</button>{% empty %}<span class="muted">Размеры будут доступны после подключения данных.</span>{% endfor %}</div><input type="hidden" name="size" id="selected-size" value="{{ selected_size|default:'' }}"></div>
+    <div class="filter-group"><div class="filter-title">Размер</div><div class="sizes"><div class="sizes">
+    <button type="button" class="size" data-size="36-38">36-38</button>
+    <button type="button" class="size" data-size="39-41">39-41</button>
+    <button type="button" class="size" data-size="42-44">42-44</button>
+    <button type="button" class="size" data-size="45-47">45-47</button>
+</div></div><input type="hidden" name="size" id="selected-size" value="{{ selected_size|default:'' }}"></div>
     <button class="button button--dark filter-submit" type="submit">Применить</button><a class="filter-reset" href="/catalog/">сбросить</a>
   </form>
   <div class="catalog-page__products"><div class="products products--page">
