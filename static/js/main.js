@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-  initMobileMenu();
-  initFaq();
-  initCatalogFilters();
-  initQuiz();
-  initProductQuantity();
-  initContactMap();
+    initMobileMenu();
+    initFaq();
+    initLandingFilters();
+    initCatalogPageFilters();
+    initQuiz();
+    initProductQuantity();
+    initContactMap();
 });
 
 function initMobileMenu() {
@@ -32,149 +33,188 @@ function initFaq() {
   }));
 }
 
-function initCatalogFilters() {
-  const minPrice = document.querySelector('#min-price');
-  const maxPrice = document.querySelector('#max-price');
-  const minValue = document.querySelector('#min-price-value');
-  const maxValue = document.querySelector('#max-price-value');
+function initLandingFilters() {
+    const filters = document.querySelector('#catalog .filters');
 
-  const products = [...document.querySelectorAll('.product-card[data-price]')];
-
-  const submit = document.querySelector('.filter-submit');
-  const reset = document.querySelector('.filter-reset');
-
-  const selectedSize = document.querySelector('#selected-size');
-
-  if (!minPrice || !maxPrice || !products.length) return;
-
-  const formatPrice = (value) =>
-    Number(value).toLocaleString('ru-RU');
-
-  function syncPriceValues() {
-    let min = Number(minPrice.value);
-    let max = Number(maxPrice.value);
-
-    if (min > max) {
-      [min, max] = [max, min];
+    if (!filters) {
+        return;
     }
 
-    if (minValue) {
-      minValue.textContent = formatPrice(min);
+    const minPrice = filters.querySelector('#min-price');
+    const maxPrice = filters.querySelector('#max-price');
+    const minValue = filters.querySelector('#min-price-value');
+    const maxValue = filters.querySelector('#max-price-value');
+
+    const products = [
+        ...document.querySelectorAll('#catalog .product-card[data-price]')
+    ];
+
+    if (!minPrice || !maxPrice || !products.length) {
+        return;
     }
 
-    if (maxValue) {
-      maxValue.textContent = formatPrice(max);
-    }
-  }
+    const formatPrice = (value) => {
+        return Number(value).toLocaleString('ru-RU');
+    };
 
-  function getSelectedSizes() {
-    return new Set(
-      [...document.querySelectorAll('.size.is-selected')]
-        .map(button => button.dataset.size)
-    );
-  }
-
-  function getSelectedGenders() {
-    return new Set(
-      [...document.querySelectorAll('input[name="gender"]:checked')]
-        .map(input => input.value)
-    );
-  }
-
-  function applyFilters() {
-    let min = Number(minPrice.value);
-    let max = Number(maxPrice.value);
-
-    if (min > max) {
-      [min, max] = [max, min];
+    function updatePriceLabels() {
+        minValue.textContent = formatPrice(minPrice.value);
+        maxValue.textContent = formatPrice(maxPrice.value);
     }
 
-    const selectedSizes = getSelectedSizes();
-    const selectedGenders = getSelectedGenders();
+    function applyFilters() {
+        const min = Number(minPrice.value);
+        const max = Number(maxPrice.value);
 
-    products.forEach(product => {
-      const price = Number(product.dataset.price);
-      const size = product.dataset.size;
-      const gender = product.dataset.gender;
+        const selectedSizes = new Set(
+            [...filters.querySelectorAll('.size.is-selected')]
+                .map(button => button.dataset.size)
+        );
 
-      const priceMatches =
-        price >= min && price <= max;
+        const selectedGenders = new Set(
+            [...filters.querySelectorAll('input[name="gender"]:checked')]
+                .map(input => input.value)
+        );
 
-      const sizeMatches =
-        selectedSizes.size === 0 ||
-        selectedSizes.has(size);
+        products.forEach(product => {
+            const price = Number(product.dataset.price);
+            const size = product.dataset.size;
+            const gender = product.dataset.gender;
 
-      const genderMatches =
-        selectedGenders.size === 0 ||
-        selectedGenders.has(gender);
+            const priceMatches =
+                price >= min && price <= max;
 
-      product.hidden = !(
-        priceMatches &&
-        sizeMatches &&
-        genderMatches
-      );
-    });
-  }
+            const sizeMatches =
+                selectedSizes.size === 0 ||
+                selectedSizes.has(size);
 
-  minPrice.addEventListener('input', () => {
-    syncPriceValues();
-    applyFilters();
-  });
+            const genderMatches =
+                selectedGenders.size === 0 ||
+                selectedGenders.has(gender);
 
-  maxPrice.addEventListener('input', () => {
-    syncPriceValues();
-    applyFilters();
-  });
-
-  document.querySelectorAll('.size').forEach(button => {
-    button.addEventListener('click', () => {
-      button.classList.toggle('is-selected');
-
-      if (selectedSize) {
-        selectedSize.value = [...getSelectedSizes()].join(',');
-      }
-
-      applyFilters();
-    });
-  });
-
-  document.querySelectorAll('input[name="gender"]').forEach(input => {
-    input.addEventListener('change', applyFilters);
-  });
-
-  submit?.addEventListener('click', event => {
-    event.preventDefault();
-    applyFilters();
-  });
-
-  reset?.addEventListener('click', event => {
-    event.preventDefault();
-
-    document.querySelectorAll('.size.is-selected')
-      .forEach(button => {
-        button.classList.remove('is-selected');
-      });
-
-    document.querySelectorAll('input[name="gender"]:checked')
-      .forEach(input => {
-        input.checked = false;
-      });
-
-    minPrice.value = minPrice.min;
-    maxPrice.value = maxPrice.max;
-
-    if (selectedSize) {
-      selectedSize.value = '';
+            product.hidden = !(
+                priceMatches &&
+                sizeMatches &&
+                genderMatches
+            );
+        });
     }
 
-    products.forEach(product => {
-      product.hidden = false;
+    minPrice.addEventListener('input', () => {
+        if (Number(minPrice.value) > Number(maxPrice.value)) {
+            minPrice.value = maxPrice.value;
+        }
+
+        updatePriceLabels();
+        applyFilters();
     });
 
-    syncPriceValues();
-  });
+    maxPrice.addEventListener('input', () => {
+        if (Number(maxPrice.value) < Number(minPrice.value)) {
+            maxPrice.value = minPrice.value;
+        }
 
-  syncPriceValues();
+        updatePriceLabels();
+        applyFilters();
+    });
+
+    filters.querySelectorAll('.size').forEach(button => {
+        button.addEventListener('click', () => {
+            button.classList.toggle('is-selected');
+            applyFilters();
+        });
+    });
+
+    filters.querySelectorAll('input[name="gender"]').forEach(input => {
+        input.addEventListener('change', applyFilters);
+    });
+
+    filters.querySelector('.filter-submit')?.addEventListener('click', applyFilters);
+
+    filters.querySelector('.filter-reset')?.addEventListener('click', () => {
+        filters.querySelectorAll('.size.is-selected').forEach(button => {
+            button.classList.remove('is-selected');
+        });
+
+        filters.querySelectorAll('input[name="gender"]:checked').forEach(input => {
+            input.checked = false;
+        });
+
+        minPrice.value = minPrice.min;
+        maxPrice.value = maxPrice.max;
+
+        products.forEach(product => {
+            product.hidden = false;
+        });
+
+        updatePriceLabels();
+    });
+
+    updatePriceLabels();
+}
+
+function initCatalogPageFilters() {
+    const filters = document.querySelector('.filters--sticky');
+
+    if (!filters) {
+        return;
+    }
+
+    const minPrice = filters.querySelector('#min-price');
+    const maxPrice = filters.querySelector('#max-price');
+    const minValue = filters.querySelector('#min-price-value');
+    const maxValue = filters.querySelector('#max-price-value');
+    const selectedSize = filters.querySelector('#selected-size');
+
+    if (!minPrice || !maxPrice) {
+        return;
+    }
+
+    const formatPrice = (value) => {
+        return Number(value).toLocaleString('ru-RU');
+    };
+
+    function updatePriceLabels() {
+        if (minValue) {
+            minValue.textContent = formatPrice(minPrice.value);
+        }
+
+        if (maxValue) {
+            maxValue.textContent = formatPrice(maxPrice.value);
+        }
+    }
+
+    minPrice.addEventListener('input', () => {
+        if (Number(minPrice.value) > Number(maxPrice.value)) {
+            minPrice.value = maxPrice.value;
+        }
+
+        updatePriceLabels();
+    });
+
+    maxPrice.addEventListener('input', () => {
+        if (Number(maxPrice.value) < Number(minPrice.value)) {
+            maxPrice.value = minPrice.value;
+        }
+
+        updatePriceLabels();
+    });
+
+    filters.querySelectorAll('.size').forEach(button => {
+        button.addEventListener('click', () => {
+            filters.querySelectorAll('.size.is-selected').forEach(item => {
+                item.classList.remove('is-selected');
+            });
+
+            button.classList.add('is-selected');
+
+            if (selectedSize) {
+                selectedSize.value = button.dataset.size;
+            }
+        });
+    });
+
+    updatePriceLabels();
 }
 
 function initQuiz() {
