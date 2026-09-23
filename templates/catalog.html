@@ -14,7 +14,12 @@
   <div class="catalog-page__products"><div class="products products--page">
     {% for product in products %}
       <article class="product-card" data-price="{{ product.price }}" data-size="{{ product.size }}" data-gender="{{ product.sex }}">
-        <a href="/product/{{ product.pk }}/" class="product-card__link"><div class="product-card__image">{% if product.image %}<img src="{{ product.image.url }}" alt="{{ product.name }}">{% else %}<img src="{% static 'images/product.jpg' %}" alt="{{ product.name }}">{% endif %}</div><h3>{{ product.name }}</h3><p>{{ product.price|floatformat:0 }} ₽</p></a>
+        <a href="{% url 'product_detail' product.pk %}" class="product-card__link"><div class="product-card__image">
+                              {% if product.image.all.0 %}
+                                  <img src="{{ product.image.all.0.image.url }}" alt="{{ product.name }}">
+                              {% else %}
+                                  <img src="{% static 'images/product.jpg' %}" alt="{{ product.name }}">
+                              {% endif %}</div><h3>{{ product.name }}</h3><p>{{ product.price|floatformat:0 }} ₽</p></a>
       </article>
     {% empty %}<div class="empty-state"><strong>Каталог пока пуст.</strong><span>Как только появятся товары, они будут показаны здесь.</span></div>{% endfor %}
   </div></div>
